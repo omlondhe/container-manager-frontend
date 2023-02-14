@@ -1,0 +1,14 @@
+.authLayout {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.authLayout__section {
+  border: 1px solid whitesmoke;
+  border-radius: 21px;
+  height: 400px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 7px 7px 11px whitesmoke, -7px -7px 11px whitesmoke;
+}

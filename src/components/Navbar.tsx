@@ -1,6 +1,16 @@
+import { useLocation } from "react-router-dom";
 import "../styles/components/Navbar.css";
+import { Fragment } from "react";
+
+const paths = {
+  login: "/auth/login",
+  signup: "/auth/signup",
+};
 
 function Navbar() {
+  const { pathname } = useLocation();
+  console.log(pathname);
+
   return (
     <nav className="navbar">
       <div className="navbar__title__section">
@@ -8,9 +18,15 @@ function Navbar() {
         <span className="navbar__subtitle">Manage all your containers!</span>
       </div>
       <div className="navbar__actions">
-        <p className="navbar__link">Log in</p>
-        <p className="navbar__link">Sign up</p>
-        <p className="navbar__link">Log out</p>
+        {pathname === paths.login || pathname === paths.signup ? (
+          <Fragment>
+            <p className="navbar__link">Log in</p>
+            <p className="navbar__link">Sign up</p>
+          </Fragment>
+        ) : null}
+        {pathname !== paths.login && pathname !== paths.signup ? (
+          <p className="navbar__link">Log out</p>
+        ) : null}
       </div>
     </nav>
   );
