@@ -1,0 +1,69 @@
+.inputField {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 7px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  display: grid;
+  place-items: center;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: saturate(180%) blur(5px);
+}
+
+.inputField__container {
+  width: calc(100% - 20px);
+}
+
+.inputField__placeholder {
+  color: grey;
+  position: relative;
+}
+
+.inputField__placeholder__text {
+  position: absolute;
+  transition: all 251ms ease-in-out;
+  top: 0;
+  left: 0;
+  border-radius: 0px;
+  border-top: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.inputField__input {
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border: none;
+  background: none;
+}
+
+.inputField__placeholder:focus-within .inputField__placeholder__text {
+  font-size: 14px;
+  background-color: white;
+  backdrop-filter: saturate(180%) blur(5px);
+  top: -27px;
+  left: -11px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border-radius: 7px;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.inputField__valued__input__placeholder {
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.4);
+  top: -27px;
+  left: -11px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border-radius: 7px;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}

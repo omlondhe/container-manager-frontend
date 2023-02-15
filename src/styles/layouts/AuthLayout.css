@@ -1,3 +1,12 @@
+.authLayout__background {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 .authLayout {
   height: 100vh;
   display: grid;
@@ -7,8 +16,22 @@
 .authLayout__section {
   border: 1px solid whitesmoke;
   border-radius: 21px;
-  height: 400px;
-  width: 100%;
+  width: calc(100% - 11px);
   max-width: 500px;
+  padding: 11px;
   box-shadow: 7px 7px 11px whitesmoke, -7px -7px 11px whitesmoke;
+  box-shadow: inset 0 -1px 0 0 hsla(0, 0%, 100%, 0.1);
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: saturate(180%) blur(5px);
+  transition: height 251ms ease-in-out;
+}
+
+@media only screen and (max-width: 500px) {
+  .authLayout__section {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    width: calc(100% - 21px);
+    padding: 21px;
+  }
 }

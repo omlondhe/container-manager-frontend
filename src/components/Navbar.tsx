@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../styles/components/Navbar.css";
 import { Fragment } from "react";
 
@@ -20,8 +20,12 @@ function Navbar() {
       <div className="navbar__actions">
         {pathname === paths.login || pathname === paths.signup ? (
           <Fragment>
-            <p className="navbar__link">Log in</p>
-            <p className="navbar__link">Sign up</p>
+            <Link to={`/auth/login`} className="navbar__link">
+              Log in
+            </Link>
+            <Link to={`/auth/signup`} className="navbar__link">
+              Sign up
+            </Link>
           </Fragment>
         ) : null}
         {pathname !== paths.login && pathname !== paths.signup ? (
