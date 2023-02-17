@@ -9,7 +9,6 @@ const paths = {
 
 function Navbar() {
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <nav className="navbar">

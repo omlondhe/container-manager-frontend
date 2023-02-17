@@ -38,7 +38,7 @@ function InputField({
             value={value}
             onChange={(e) => setValue(e.target.value)}
             className="inputField__input"
-            required
+            required={required}
           />
         </label>
       </div>

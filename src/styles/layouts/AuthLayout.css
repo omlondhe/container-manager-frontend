@@ -28,10 +28,7 @@
 
 @media only screen and (max-width: 500px) {
   .authLayout__section {
-    box-shadow: none;
-    border: none;
-    border-radius: 0;
-    width: calc(100% - 21px);
+    width: calc(100% - 60px);
     padding: 21px;
   }
 }
