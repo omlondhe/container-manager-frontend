@@ -1,13 +1,32 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import "../styles/layouts/AuthLayout.css";
 import Navbar from "../components/Navbar";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { TypeOptions } from "react-toastify/dist/types";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useContextValue } from "../context/StateProvider";
+import { actionTypes } from "../context/reducer";
+import jwtDecode from "jwt-decode";
 
 function AuthLayout() {
+  const navigate = useNavigate();
+  const [{ user }, dispatch] = useContextValue();
+
+  useEffect(() => {
+    if (!user) {
+      const localStorageUser = localStorage.getItem(`user`);
+      if (localStorageUser) {
+        dispatch({
+          type: actionTypes.SET_USER,
+          payload: jwtDecode(localStorageUser),
+        });
+        navigate(`/dashboard`, { replace: true });
+      }
+    }
+  }, [user]);
+
   function showToast(toastMessage: string, toastType: TypeOptions) {
     toast(toastMessage, {
       type: toastType,
