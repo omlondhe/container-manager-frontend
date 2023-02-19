@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import "../styles/pages/Login.css";
 import InputField from "../components/InputField";
-import VerticalSpace from "../components/VerticalSpace";
+import Space from "../components/Space";
 import FormButton from "../components/FormButton";
 import axios from "axios";
 import { useNavigate, useOutletContext } from "react-router-dom";
@@ -48,7 +48,7 @@ function Login() {
   return (
     <form className="login" onSubmit={handleLogIn}>
       <p className="login__title">Log in</p>
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <InputField
         id={"email"}
         name={"email"}
@@ -58,7 +58,7 @@ function Login() {
         setValue={setEmail}
         required={true}
       />
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <InputField
         id={"password"}
         name={"password"}
@@ -68,7 +68,7 @@ function Login() {
         setValue={setPassword}
         required={true}
       />
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <FormButton value="Log in" />
     </form>
   );

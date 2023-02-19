@@ -2,7 +2,7 @@ import "../styles/pages/Signup.css";
 import { FormEvent, useState } from "react";
 import InputField from "../components/InputField";
 import FormButton from "../components/FormButton";
-import VerticalSpace from "../components/VerticalSpace";
+import Space from "../components/Space";
 import axios from "axios";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
@@ -72,7 +72,7 @@ function Signup() {
   return (
     <form className="signup" onSubmit={handleSignUp}>
       <p className="signup__title">Sign up</p>
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <InputField
         id={"firstName"}
         name={"firstName"}
@@ -82,7 +82,7 @@ function Signup() {
         setValue={setFirstName}
         required={true}
       />
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <InputField
         id={"middleName"}
         name={"middleName"}
@@ -92,7 +92,7 @@ function Signup() {
         setValue={setMiddleName}
         required={false}
       />
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <InputField
         id={"lastName"}
         name={"lastName"}
@@ -102,7 +102,7 @@ function Signup() {
         setValue={setLastName}
         required={true}
       />
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <InputField
         id={"email"}
         name={"email"}
@@ -112,7 +112,7 @@ function Signup() {
         setValue={setEmail}
         required={true}
       />
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <InputField
         id={"password"}
         name={"password"}
@@ -122,7 +122,7 @@ function Signup() {
         setValue={setPassword}
         required={true}
       />
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <InputField
         id={"confirmPassword"}
         name={"confirmPassword"}
@@ -132,7 +132,7 @@ function Signup() {
         setValue={setConfirmPassword}
         required={true}
       />
-      <VerticalSpace height={21} />
+      <Space height={21} />
       <FormButton value="Sign up" />
     </form>
   );
