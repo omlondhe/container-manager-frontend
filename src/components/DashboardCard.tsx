@@ -10,6 +10,7 @@ interface DashboardCardProps {
   setName: Function;
   setCost: Function;
   setWeight: Function;
+  removeCard: Function;
 }
 
 function DashboardCard({
@@ -18,6 +19,7 @@ function DashboardCard({
   setName,
   setCost,
   setWeight,
+  removeCard,
 }: DashboardCardProps) {
   return (
     <div className="dashboardCard">
@@ -57,8 +59,10 @@ function DashboardCard({
       </div>
       <Space height={21} />
       <div className="dashboardCard__top">
-        <p className="dashboardCard__title">Item {index + 1}</p>
-        <IconButton>
+        <p className="dashboardCard__title">
+          {data.name ? data.name : `Item ${index + 1}`}
+        </p>
+        <IconButton onClick={() => removeCard(index)}>
           <RemoveIcon />
         </IconButton>
       </div>

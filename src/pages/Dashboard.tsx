@@ -1,17 +1,28 @@
 import jwtDecode from "jwt-decode";
 import { actionTypes } from "../context/reducer";
-import { useEffect, useRef, useState } from "react";
+import {
+  LegacyRef,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { useContextValue } from "../context/StateProvider";
 import DashboardCard from "../components/DashboardCard";
 import { DataType } from "../utils/types";
 import "../styles/pages/Dashboard.css";
+import Navbar from "../components/Navbar";
+import Space from "../components/Space";
+import axios from "axios";
 
 function Dashboard() {
+  const itemRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
+  const [dataLength, setDataLength] = useState<number>(0);
   const [{ user }, dispatch] = useContextValue();
-  const [weight, setWeight] = useState<number>();
-  const [data, setData] = useState<DataType[]>([new DataType()]);
+  const [weight, setWeight] = useState<number>(20);
+  const [data, setData] = useState<DataType[]>([]);
 
   useEffect(() => {
     if (!user) {
@@ -24,6 +35,17 @@ function Dashboard() {
       } else navigate(`/auth/login`, { replace: true });
     }
   }, [user]);
+
+  useEffect(() => {
+    if (dataLength < data.length) {
+      (itemRef as MutableRefObject<HTMLDivElement>).current.scrollTo({
+        behavior: "smooth",
+        left: 0,
+        top: itemRef.current?.scrollHeight,
+      });
+    }
+    setDataLength(data.length);
+  }, [data]);
 
   function setItemName(name: string, index: number) {
     data[index].name = name;
@@ -43,9 +65,43 @@ function Dashboard() {
     setData([...data]);
   }
 
+  function removeCard(index: number) {
+    data.splice(index, 1);
+    setData([...data]);
+  }
+
+  async function calculate() {
+    try {
+      const names: string[] = [];
+      const costs: string[] = [];
+      const weights: string[] = [];
+      data.forEach((d) => {
+        names.push(d.name);
+        costs.push(d.cost);
+        weights.push(d.weight);
+      });
+      const response = await axios.post("http://127.0.0.1:3000/api/calculate", {
+        weight,
+        names,
+        costs,
+        weights,
+      });
+      console.log(response.data);
+      // showToast(
+      //   "You are registered successfully, try logging in!",
+      //   "success"
+      // );
+    } catch (error) {
+      // showToast("Internal server error.", "error");
+      console.log(error);
+    }
+  }
+
   return (
     <div className="dashboard">
-      <div className="dashboard__cards">
+      <Navbar />
+      <Space height={60} />
+      <div className="dashboard__cards" ref={itemRef}>
         {data?.map((d, index) => (
           <DashboardCard
             key={index}
@@ -54,11 +110,19 @@ function Dashboard() {
             setName={setItemName}
             setCost={setItemCost}
             setWeight={setItemWeight}
+            removeCard={removeCard}
           />
         ))}
       </div>
       <button onClick={addItem} className="dashboard__button">
         Add an item
+      </button>
+      <Space height={7} />
+      <button
+        onClick={calculate}
+        className="dashboard__button dashboard__button__submit"
+      >
+        Calculate
       </button>
     </div>
   );
