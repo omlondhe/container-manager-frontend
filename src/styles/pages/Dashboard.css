@@ -7,6 +7,21 @@
   padding: 0 7px 7px 7px;
 }
 
+.dashboard__input {
+  width: calc(100% - 22px);
+  outline: none;
+  font-size: 16px;
+  padding: 7px 11px 7px 11px;
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 7px;
+  transition: border 333ms ease-in-out;
+  max-width: 500px;
+}
+
+.dashboard__input:focus {
+  border: 1px solid lightgrey;
+}
+
 .dashboard__cards {
   padding: 11px;
   width: calc(100% - 22px);

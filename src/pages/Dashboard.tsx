@@ -1,12 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { actionTypes } from "../context/reducer";
-import {
-  LegacyRef,
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContextValue } from "../context/StateProvider";
 import DashboardCard from "../components/DashboardCard";
@@ -15,13 +9,16 @@ import "../styles/pages/Dashboard.css";
 import Navbar from "../components/Navbar";
 import Space from "../components/Space";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import InputField from "../components/InputField";
+import { ContextType, User } from "../context/types";
 
 function Dashboard() {
   const itemRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const [dataLength, setDataLength] = useState<number>(0);
   const [{ user }, dispatch] = useContextValue();
-  const [weight, setWeight] = useState<number>(20);
+  const [weight, setWeight] = useState<string>("");
   const [data, setData] = useState<DataType[]>([]);
 
   useEffect(() => {
@@ -30,10 +27,14 @@ function Dashboard() {
       if (localStorageUser) {
         dispatch({
           type: actionTypes.SET_USER,
-          payload: jwtDecode(localStorageUser),
+          payload: {
+            ...jwtDecode(localStorageUser),
+            token: localStorageUser,
+          },
         });
       } else navigate(`/auth/login`, { replace: true });
     }
+    console.log(user);
   }, [user]);
 
   useEffect(() => {
@@ -85,14 +86,11 @@ function Dashboard() {
         names,
         costs,
         weights,
+        token: user?.token,
       });
       console.log(response.data);
-      // showToast(
-      //   "You are registered successfully, try logging in!",
-      //   "success"
-      // );
     } catch (error) {
-      // showToast("Internal server error.", "error");
+      toast("Internal server error.", { type: "error" });
       console.log(error);
     }
   }
@@ -100,7 +98,17 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <Navbar />
-      <Space height={60} />
+      <Space height={100} />
+      <input
+        id={`weight`}
+        name={`weight`}
+        placeholder={`Weight capacity`}
+        type="number"
+        value={weight}
+        onChange={(e) => setWeight(e.target.value)}
+        required={true}
+        className="dashboard__input"
+      />
       <div className="dashboard__cards" ref={itemRef}>
         {data?.map((d, index) => (
           <DashboardCard
@@ -124,6 +132,18 @@ function Dashboard() {
       >
         Calculate
       </button>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

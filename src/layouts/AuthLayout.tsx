@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useContextValue } from "../context/StateProvider";
 import { actionTypes } from "../context/reducer";
 import jwtDecode from "jwt-decode";
+import { ContextType, User } from "../context/types";
 
 function AuthLayout() {
   const navigate = useNavigate();
@@ -20,7 +21,10 @@ function AuthLayout() {
       if (localStorageUser) {
         dispatch({
           type: actionTypes.SET_USER,
-          payload: jwtDecode(localStorageUser),
+          payload: {
+            ...jwtDecode(localStorageUser),
+            token: localStorageUser,
+          },
         });
         navigate(`/dashboard`, { replace: true });
       }

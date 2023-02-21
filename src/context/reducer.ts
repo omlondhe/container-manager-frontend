@@ -1,4 +1,4 @@
-import { ContextAction, ContextType } from "./types";
+import { ContextAction, ContextType, User } from "./types";
 
 export const initialState: ContextType = {
   user: null,
