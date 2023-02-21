@@ -4,7 +4,7 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContextValue } from "../context/StateProvider";
 import DashboardCard from "../components/DashboardCard";
-import { DataType } from "../utils/types";
+import { CalculationTypes, DataType } from "../utils/types";
 import "../styles/pages/Dashboard.css";
 import Navbar from "../components/Navbar";
 import Space from "../components/Space";
@@ -12,6 +12,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import InputField from "../components/InputField";
 import { ContextType, User } from "../context/types";
+import Dialog from "../components/Dialog";
 
 function Dashboard() {
   const itemRef = useRef<HTMLDivElement | null>(null);
@@ -20,6 +21,9 @@ function Dashboard() {
   const [{ user }, dispatch] = useContextValue();
   const [weight, setWeight] = useState<string>("");
   const [data, setData] = useState<DataType[]>([]);
+  const [responseData, setResponseData] = useState<CalculationTypes>();
+  const [openCalculationDialog, setOpenCalculationDialog] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (!user) {
@@ -34,7 +38,6 @@ function Dashboard() {
         });
       } else navigate(`/auth/login`, { replace: true });
     }
-    console.log(user);
   }, [user]);
 
   useEffect(() => {
@@ -88,7 +91,8 @@ function Dashboard() {
         weights,
         token: user?.token,
       });
-      console.log(response.data);
+      setResponseData(response.data);
+      setOpenCalculationDialog(true);
     } catch (error) {
       toast("Internal server error.", { type: "error" });
       console.log(error);
@@ -99,6 +103,11 @@ function Dashboard() {
     <div className="dashboard">
       <Navbar />
       <Space height={100} />
+      <Dialog
+        open={openCalculationDialog}
+        setOpen={setOpenCalculationDialog}
+        responseData={responseData}
+      />
       <input
         id={`weight`}
         name={`weight`}
