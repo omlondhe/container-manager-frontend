@@ -101,12 +101,12 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <Navbar />
       <Space height={100} />
       <Dialog
         open={openCalculationDialog}
         setOpen={setOpenCalculationDialog}
         responseData={responseData}
+        user={user}
       />
       <input
         id={`weight`}

@@ -47,7 +47,6 @@ function AuthLayout() {
         className="authLayout__background"
       ></video>
       <div className="authLayout">
-        <Navbar />
         <section className="authLayout__section">
           <Outlet context={{ showToast }} />
         </section>

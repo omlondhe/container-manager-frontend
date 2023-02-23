@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 function Home() {
   return (
     <div>
-      <Navbar />
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum
         aspernatur minima doloremque in necessitatibus ipsam, iusto id

@@ -25,4 +25,5 @@ export class CalculationTypes {
   dataToTake: DataType[] = [];
   dataNotToTake: DataType[] = [];
   by: string = "";
+  timestamp: string = new Date().toLocaleString();
 }
